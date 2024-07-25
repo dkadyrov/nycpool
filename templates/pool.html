@@ -1,0 +1,44 @@
+{%extends "base.html"%}
+
+{%block head%}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+{%endblock%}
+
+{%block body%}
+
+
+<main class="flex-shrink-0">
+  <div class="container">
+    <p>{{pool.name}}</p>
+    <div id="map" style="width: 600px; height: 400px;"></div>
+
+  </div>
+
+  <script>
+
+	const map = L.map('map').setView([{{pool.latitude}}, {{pool.longitude}}], 13);
+
+	const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		maxZoom: 19,
+		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+	}).addTo(map);
+
+	const marker = L.marker([{{pool.latitude}}, {{pool.longitude}}]).addTo(map)
+		.bindPopup('{{pool.name}}').openPopup();
+
+	function onMapClick(e) {
+		popup
+			.setLatLng(e.latlng)
+			.setContent(`You clicked the map at ${e.latlng.toString()}`)
+			.openOn(map);
+	}
+
+	map.on('click', onMapClick);
+
+</script>
+</main>
+{%endblock%}

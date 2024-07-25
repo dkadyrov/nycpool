@@ -1,0 +1,18 @@
+{%extends "base.html"%}
+{%block body%}
+<main class="flex-shrink-0">
+  <div class="container">
+    {%for pool in pools%}
+
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{pool.name}}</h5>
+          <p class="card-text">{{pool.borough}} - {{pool.location}} - {{pool.pooltype}}</p>
+          <a href={{pool.id}} class="btn btn-primary">More information</a>
+        </div>
+      </div>
+
+    {%endfor%}
+  </div>
+</main>
+{%endblock%}
